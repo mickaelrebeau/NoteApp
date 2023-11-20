@@ -1,11 +1,11 @@
-interface Notes {
+export interface Notes {
 	title: string;
 	description: string;
 	label: string;
 	[key: string]: string;
 }
 
-interface User {
+export interface User {
 	username?: string;
 	email: string;
 	password: string;
@@ -90,3 +90,25 @@ export const getNotes = async () => {
 	const data = await response.json();
 	return data;
 };
+
+export const getNote = async (noteId: string) => {
+	const response = await fetch(`http://localhost:3000/note/${noteId}`);
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+	const data = await response.json();
+	return data;
+};
+
+export const deleteNote = async (noteId: string) => {
+	const response = await fetch(`http://localhost:3000/note/${noteId}`, {
+		method: "DELETE",
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	return data;
+}
