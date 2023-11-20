@@ -56,7 +56,6 @@ export class NoteController {
     @Body() note: Note,
     @UploadedFiles() files: Express.Multer.File[],
   ): Promise<any> {
-    // console.log(note);
     const newFiles = await this.fileService.uploadFiles(files);
     note.files = newFiles;
     const newNote = this.noteService.create(note);
