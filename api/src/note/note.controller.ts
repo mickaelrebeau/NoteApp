@@ -9,7 +9,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { UpdateResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { NoteService } from './note.service';
 import { Note } from './model/note.entity';
 import { FilesInterceptor } from '@nestjs/platform-express';
@@ -63,12 +63,45 @@ export class NoteController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() note: Note): Promise<UpdateResult> {
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: diskStorage({
+        destination: './files',
+        filename: (req, file, cb) => {
+          const date = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename: string = `${
+            file.originalname.split('.')[0]
+          }-${date}${ext}`;
+          cb(null, filename);
+        },
+      }),
+    }),
+  )
+  async update(
+    @Param('id') id: string,
+    @Body() note: Note,
+    @UploadedFiles() files: Express.Multer.File[],
+  ): Promise<UpdateResult> {
+    if (files && files.length > 0) {
+      const newFiles = await this.fileService.uploadFiles(files);
+      note.files = newFiles;
+    }
     return this.noteService.update(id, note);
   }
 
   @Delete(':id')
-  destroy(@Param('id') id: string): Promise<void> {
+  destroy(@Param('id') id: string): Promise<DeleteResult> {
     return this.noteService.delete(id);
+  }
+
+  @Delete(':id/files')
+  destroyFiles(@Param('id') id: string): Promise<void> {
+    return this.noteService.destroyFiles(id);
+  }
+
+  @Delete(':id/file/:idFile')
+  destroyFile(@Param('idFile') id: string): Promise<DeleteResult> {
+    return this.fileService.delete(id);
   }
 }
