@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useLocation} from "react-router-dom";
 import "./App.css";
 import { Home } from "./pages/home/home";
 import { ThemeProvider } from "./components/theme-provider";
@@ -6,6 +6,7 @@ import { HeroPage } from "./pages/auth/hero";
 import { Signin } from "./pages/auth/login";
 import { NewNote } from "./pages/home/newNote";
 import { Header } from "./components/header";
+import { EditNote } from "./pages/home/editNote";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						{/* Website pages */}
 						<Route path="/home" element={<Home />} />
 						<Route path="/new" element={<NewNote />} />
+						<Route path="/edit/:id" element={<EditNote />} />
 					</Route>
 				</Routes>
 			</ThemeProvider>
