@@ -8,7 +8,7 @@ import {
 import { File } from 'src/upload/model/file.entity';
 import { User } from 'src/user/model/user.entity';
 
-type Label = 'bug' | 'feature' | 'fix' | 'documentation' | 'other';
+export type Label = 'bug' | 'feature' | 'fix' | 'documentation' | 'other';
 
 @Entity()
 export class Note {
