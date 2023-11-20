@@ -44,7 +44,7 @@ export function ListeNotes({ label, datas }: { label: { value: string, label: st
 								<ConfirmModalNote id={data.id} />
 								<Link
 									to={`/edit/${data.id}`}
-									className="block mt-8 w-full py-2 rounded-md text-md text-center font-semibold text-black dark:text-white cursor-pointer hover:text-white dark:hover:text-white bg-transparent hover:bg-gradient-to-r from-amber-600 to-yellow-400"
+									className="block mt-8 w-full py-2 rounded-md text-md text-center font-semibold bg-white text-black cursor-pointer hover:text-white dark:hover:text-white bg-transparent hover:bg-amber-600"
 								>
 									Editer
 								</Link>

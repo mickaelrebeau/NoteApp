@@ -14,7 +14,7 @@ import { deleteFile } from "@/utils/fetch";
 export function ConfirmModalFile({ id }: { id: string }) {
     return (
 		<AlertDialog>
-			<AlertDialogTrigger className="text-red-500 hover:text-red-600">
+			<AlertDialogTrigger className="p-2 border rounded-md hover:bg-slate-800">
 				Supprimer
 			</AlertDialogTrigger>
 			<AlertDialogContent>

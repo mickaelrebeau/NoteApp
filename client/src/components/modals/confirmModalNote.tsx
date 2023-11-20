@@ -14,7 +14,7 @@ import { deleteNote } from "@/utils/fetch";
 export function ConfirmModalNote({ id }: { id: string }) {
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger className="mt-8 w-full py-2 rounded-md text-md font-semibold text-red-500 cursor-pointer hover:text-white bg-transparent hover:bg-slate-200 dark:hover:bg-slate-800">
+			<AlertDialogTrigger className="mt-8 w-full py-2 border rounded-md text-md font-semibold cursor-pointer hover:text-white bg-transparent hover:bg-slate-200 dark:hover:bg-slate-800">
 				Supprimer
 			</AlertDialogTrigger>
 			<AlertDialogContent>
