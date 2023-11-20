@@ -22,8 +22,6 @@ export function Home() {
 		return datas.filter((data) => data.label === label);
 	};
 
-	console.log(datas);
-
 	return (
 		<section className="p-8 flex flex-col items-center justify-center gap-8 overflow-hidden">
 			<div className="w-full flex">
