@@ -10,6 +10,8 @@ import { NoteService } from 'src/note/note.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
+import { UploadService } from 'src/upload/upload.service';
+import { File } from 'src/upload/model/file.entity';
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ dotenv.config();
     UserModule,
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Note]),
+    TypeOrmModule.forFeature([File]),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
       global: true,
@@ -25,7 +28,7 @@ dotenv.config();
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, UserService, NoteService],
+  providers: [AuthService, UserService, NoteService, UploadService],
   controllers: [AuthController],
 })
 export class AuthModule {}
