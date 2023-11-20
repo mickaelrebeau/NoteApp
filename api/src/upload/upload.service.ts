@@ -14,4 +14,12 @@ export class UploadService {
     const newFiles = await this.fileRepository.save(files);
     return newFiles;
   }
+
+  getByNoteId(id: string) {
+    return this.fileRepository.find({ where: { note: { id } } });
+  }
+
+  delete(id: string) {
+    return this.fileRepository.delete(id);
+  }
 }
