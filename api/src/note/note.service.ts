@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, Repository, UpdateResult } from 'typeorm';
+import {
+  DeleteResult,
+  FindManyOptions,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { Note } from './model/note.entity';
 import { UploadService } from 'src/upload/upload.service';
-import { unlinkSync } from 'fs';
 
 @Injectable()
 export class NoteService {
@@ -33,18 +37,26 @@ export class NoteService {
     return await this.noteRepository.update(id, note);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<DeleteResult> {
     const note = await this.getById(id);
 
     const files = await this.fileService.getByNoteId(note.id);
 
     for (let i = 0; i < files.length; i++) {
-      unlinkSync(files[i].path);
-
       await this.fileService.delete(files[i].id);
     }
 
-    await this.noteRepository.delete(id);
+    return await this.noteRepository.delete(id);
+  }
+
+  async destroyFiles(id: string): Promise<void> {
+    const note = await this.getById(id);
+
+    const files = await this.fileService.getByNoteId(note.id);
+
+    for (let i = 0; i < files.length; i++) {
+      await this.fileService.delete(files[i].id);
+    }
   }
 
   async getByTitle(title: string): Promise<Note | null> {

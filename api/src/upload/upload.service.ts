@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { File } from './model/file.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { unlinkSync } from 'fs';
 
 @Injectable()
 export class UploadService {
@@ -19,7 +20,11 @@ export class UploadService {
     return this.fileRepository.find({ where: { note: { id } } });
   }
 
-  delete(id: string) {
+  async delete(id: string) {
+    const file = await this.fileRepository.findOneBy({ id });
+    if (file) {
+      unlinkSync(file.path);
+    }
     return this.fileRepository.delete(id);
   }
 }
