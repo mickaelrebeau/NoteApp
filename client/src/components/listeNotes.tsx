@@ -3,10 +3,9 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
+import { deleteNote } from "@/utils/fetch";
+import { Link } from "react-router-dom";
 
 interface File {
 	id: string;
@@ -23,36 +22,43 @@ export function ListeNotes({ label, datas }: { label: { value: string, label: st
 			<div className="w-[95%] p-4 grid grid-flow-col gap-4 overflow-x-auto">
 				{datas.map((data) => (
 					<Card key={data.id}>
-						<CardHeader>
-							<CardTitle>
-								{data.title}
-							</CardTitle>
-						</CardHeader>
-						<CardContent className="flex flex-col gap-4">
-							<p className="max-h-[150px] text-slate-500 overflow-auto">
-								{data.description}
-							</p>
-							<div className="flex flex-col gap-4">
-								{data.files.map((file: File) => (
-									<a
-										key={file.path}
-										href={link + file.path}
-										className="text-slate-500 hover:text-yellow-400"
-										download
-									>
-										- {file.originalname}
-									</a>
-								))}
+						<CardContent className="p-4 flex justify-between gap-4">
+							<div className="flex flex-col justify-center gap-4">
+								<h3 className="text-lg font-semibold">{data.title}</h3>
+								<p className="max-h-[150px] text-slate-500 overflow-auto">
+									{data.description}
+								</p>
+								<div className="flex flex-col gap-4">
+									{data.files.map((file: File) => (
+										<a
+											key={file.path}
+											href={link + file.path}
+											className="text-slate-500 hover:text-yellow-400"
+											download
+										>
+											- {file.originalname}
+										</a>
+									))}
+								</div>
+							</div>
+							<div className="flex flex-col justify-center gap-2">
+								<Button
+									className="mt-8 w-full py-2 rounded-md text-md font-semibold text-red-500 cursor-pointer hover:text-white bg-transparent hover:bg-gradient-to-r from-amber-600 to-yellow-400 hover:shadow-2xl hover:shadow-amber-600/50"
+									onClick={() => {
+										deleteNote(data.id);
+										window.location.reload();
+									}}
+								>
+									Supprimer
+								</Button>
+								<Link
+									to={`/edit/${data.id}`}
+									className="block mt-8 w-full py-2 rounded-md text-md text-center font-semibold text-black dark:text-white cursor-pointer hover:text-white dark:hover:text-white bg-transparent hover:bg-gradient-to-r from-amber-600 to-yellow-400 hover:shadow-2xl hover:shadow-amber-600/50"
+								>
+									Editer
+								</Link>
 							</div>
 						</CardContent>
-						<CardFooter className="flex justify-between gap-4">
-							<Button className="mt-8 w-full py-2 rounded-md text-lg font-semibold text-red-500 cursor-pointer hover:text-white bg-transparent hover:bg-gradient-to-r from-amber-600 to-yellow-400 hover:shadow-2xl hover:shadow-amber-600/50">
-								Supprimer
-							</Button>
-							<Button className="mt-8 w-full py-2 rounded-md text-lg font-semibold text-black dark:text-white cursor-pointer hover:text-white dark:hover:text-white bg-transparent hover:bg-gradient-to-r from-amber-600 to-yellow-400 hover:shadow-2xl hover:shadow-amber-600/50">
-								Editer
-							</Button>
-						</CardFooter>
 					</Card>
 				))}
 			</div>

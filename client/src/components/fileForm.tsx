@@ -54,21 +54,6 @@ export function FileForm({files, setFiles}: {files: File[], setFiles: (files: Fi
     return (
         <div className="flex flex-col gap-4 border border-input p-3 rounded">
             <div className="flex flex-col gap-4">
-                <div className="border dark:border-input w-full max-w-lg rounded-xl">
-                    <div className="dark:border-input">
-                        <div className="flex flex-row justify-start items-center px-4 py-2 gap-2">
-                            <div className="rounded-full border p-2 flex flex-row justify-center items-center dark:border-input">
-                                <UploadCloud className="h-5 w-5 text-neutral-600" />
-                            </div>
-                            <div>
-                                <p className="font-semibold mb-0">Télécharger des fichiers</p>
-                                <p className="text-sm text-neutral-500 -mt-1">
-                                    Drag and drop tes fichiers
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <Label
                     htmlFor="file"
                     onDragOver={onDragOver}
