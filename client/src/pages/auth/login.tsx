@@ -34,10 +34,14 @@ export function Signin() {
 		const data = await login(user);
 		if (data) {
 			const access_token = data.access_token;
-			localStorage.setItem("access_token", access_token);
+			if (access_token !== undefined) {
+				localStorage.setItem("access_token", access_token);
+			}
 
 			const userId = data.userId;
-			localStorage.setItem("userId", userId);
+			if (userId !== undefined) {
+				localStorage.setItem("userId", userId);
+			}
 			
 			form.reset();
 			navigate("/home");
