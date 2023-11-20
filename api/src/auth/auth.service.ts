@@ -45,7 +45,7 @@ export class AuthService {
     };
 
     return {
-      acces_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload),
       userId: user.id,
     };
   }
