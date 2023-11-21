@@ -83,11 +83,7 @@ export class NoteController {
     @Body() note: Note,
     @UploadedFiles() files: Express.Multer.File[],
   ): Promise<UpdateResult> {
-    if (files && files.length > 0) {
-      const newFiles = await this.fileService.uploadFiles(files);
-      note.files = newFiles;
-    }
-    return this.noteService.update(id, note);
+    return this.noteService.update(id, note, files);
   }
 
   @Delete(':id')
