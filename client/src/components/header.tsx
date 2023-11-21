@@ -30,14 +30,15 @@ export function Header() {
 				NoteApp
 			</NavLink>
 			<div className="flex items-center gap-4">
-				<p>Bienvenue, { username }</p>
+				<p>Bienvenue, {username}</p>
 				<ModeToggle />
+				<NavLink to={"/profil"} className="py-2 px-3 border rounded-md hover:bg-amber-600">Profile</NavLink>
 				<Button
 					variant="outline"
 					onClick={handleLogout}
 					className="hover:bg-amber-600"
 				>
-					Logout
+					Déconnexion
 				</Button>
 			</div>
 		</header>
