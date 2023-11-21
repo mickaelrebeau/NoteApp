@@ -13,6 +13,9 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { signup } from "@/utils/fetch";
+import { useState } from "react";
+import { Eye } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 const defaultconfig = {
 	pseudo: "",
@@ -22,6 +25,7 @@ const defaultconfig = {
 
 export function HeroPage() {
 	const navigate = useNavigate();
+	const [showPassword, setShowPassword] = useState(false);
 
 	const form = useForm<Signup>({
 		mode: "onSubmit",
@@ -109,16 +113,28 @@ export function HeroPage() {
 							control={form.control}
 							name="password"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="relative">
 									<FormLabel>Mot de passe</FormLabel>
 									<FormControl>
 										<Input
 											{...field}
-											type="password"
+											type={showPassword ? "text" : "password"}
 											value={field.value || ""}
 											placeholder="@1exemplePassword"
 										/>
 									</FormControl>
+									<div className="absolute top-8 right-2">
+										<Label htmlFor="show" className="cursor-pointer">
+											<Eye className="text-slate-500" />
+										</Label>
+										<Input
+											id="show"
+											type="checkbox"
+											checked={showPassword}
+											onChange={() => setShowPassword(!showPassword)}
+											className="hidden"
+										/>
+									</div>
 									<FormMessage />
 								</FormItem>
 							)}

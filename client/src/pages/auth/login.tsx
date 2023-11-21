@@ -1,6 +1,6 @@
 import { Login, loginSchema } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MoveLeft } from "lucide-react";
+import { Eye, MoveLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,8 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { login } from "@/utils/fetch";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 
 const defaultconfig = {
@@ -23,6 +25,7 @@ const defaultconfig = {
 
 export function Signin() {
 	const navigate = useNavigate();
+	const [showPassword, setShowPassword] = useState(false);
 	
 	const form = useForm<Login>({
 		mode: "onSubmit",
@@ -85,16 +88,28 @@ export function Signin() {
 						control={form.control}
 						name="password"
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className="relative">
 								<FormLabel>Mot de passe</FormLabel>
 								<FormControl>
 									<Input
 										{...field}
-										type="password"
+										type={showPassword ? "text" : "password"}
 										value={field.value || ""}
 										placeholder="@1exemplePassword"
 									/>
 								</FormControl>
+								<div className="absolute top-8 right-2">
+									<Label htmlFor="show" className="cursor-pointer">
+										<Eye className="text-slate-500" />
+									</Label>
+									<Input
+										id="show"
+										type="checkbox"
+										checked={showPassword}
+										onChange={() => setShowPassword(!showPassword)}
+										className="hidden"
+									/>
+								</div>
 								<FormMessage />
 							</FormItem>
 						)}
