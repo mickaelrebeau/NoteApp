@@ -45,6 +45,19 @@ export const login = async (user: User) => {
 	return data;
 }
 
+export const getUser = async (userId: string) => {
+	try {
+		const response = await fetch(`http://localhost:3000/user/${userId}`);
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export const getUsername = async (userId: string) => {
 	try {
 		const response = await fetch(`http://localhost:3000/user/${userId}`);
