@@ -33,8 +33,30 @@ export class NoteService {
     return await this.noteRepository.save(note);
   }
 
-  async update(id: string, note: Note): Promise<UpdateResult> {
-    return await this.noteRepository.update(id, note);
+  async update(
+    id: string,
+    note: Note,
+    newFiles: Express.Multer.File[],
+  ): Promise<UpdateResult> {
+    const existingNote = await this.getById(id);
+
+    const updatedNote = {
+      title: note.title,
+      description: note.description,
+      label: note.label,
+    };
+
+    const noteUpdateResult = await this.noteRepository.update(id, updatedNote);
+
+    if (newFiles && newFiles.length > 0) {
+      const uploadedFiles = await this.fileService.addFilesToNote(id, newFiles);
+
+      existingNote.files = uploadedFiles;
+
+      await this.noteRepository.save(existingNote);
+    }
+
+    return noteUpdateResult;
   }
 
   async delete(id: string): Promise<DeleteResult> {
