@@ -7,6 +7,7 @@ import { Signin } from "./pages/auth/login";
 import { NewNote } from "./pages/home/newNote";
 import { Header } from "./components/header";
 import { EditNote } from "./pages/home/editNote";
+import { Profil } from "./pages/profil/profil";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 						<Route path="/home" element={<Home />} />
 						<Route path="/new" element={<NewNote />} />
 						<Route path="/edit/:id" element={<EditNote />} />
+						<Route path="/profil" element={<Profil />} />
 					</Route>
 				</Routes>
 			</ThemeProvider>
