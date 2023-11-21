@@ -74,7 +74,6 @@ export function Profil() {
 				</p>
 			</div>
 			<div className="w-1/3">
-				<Button variant="outline" className="w-full mb-8">Modifier Le mot de passe</Button>
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
