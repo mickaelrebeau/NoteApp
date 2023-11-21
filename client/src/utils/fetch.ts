@@ -11,6 +11,12 @@ export interface User {
 	password: string;
 }
 
+export interface UpdateUser {
+	username?: string;
+	email?: string;
+	password?: string;
+}
+
 export const signup = async (user: User) => {
 	const response = await fetch("http://localhost:3000/auth/signup", {
 		method: "POST",
@@ -69,6 +75,23 @@ export const getUsername = async (userId: string) => {
 	} catch (error) {
 		console.error(error);
 	}
+};
+
+export const updateUser = async (userId: string, user: UpdateUser) => {
+	const response = await fetch(`http://localhost:3000/user/${userId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(user),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	return data;
 };
 
 export const postNote = async (note: Notes, files: File[]) => {
