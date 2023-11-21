@@ -82,6 +82,30 @@ export const postNote = async (note: Notes, files: File[]) => {
 	return data;
 };
 
+export const updateNote = async (id: string, note: Notes, files: File[]) => {
+	const formData = new FormData();
+
+	for (const key in note) {
+		formData.append(key, note[key]);
+	}
+
+	for (const file of files) {
+		formData.append("files", file);
+	}
+
+	const response = await fetch(`http://localhost:3000/note/${id}`, {
+		method: "PUT",
+		body: formData,
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	return data;
+};
+
 export const getNotes = async () => {
 	const response = await fetch("http://localhost:3000/note");
 	if (!response.ok) {
@@ -102,6 +126,19 @@ export const getNote = async (noteId: string) => {
 
 export const deleteNote = async (noteId: string) => {
 	const response = await fetch(`http://localhost:3000/note/${noteId}`, {
+		method: "DELETE",
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const data = await response.json();
+	return data;
+}
+
+export const deleteFile = async (fileId: string) => {
+	const response = await fetch(`http://localhost:3000/files/${fileId}`, {
 		method: "DELETE",
 	});
 
