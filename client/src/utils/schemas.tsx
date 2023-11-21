@@ -67,24 +67,6 @@ export const userSchema = z.object({
 			message: "Le pseudo ne peut pas contenir plus de 20 caractères !",
 		}),
 	email: z.string().email({ message: "L'email n'est pas valide !" }),
-	password: z
-		.string()
-		.min(8, {
-			message: "Le mot de passe doit contenir au moins 8 caractères !",
-		})
-		.max(50, {
-			message: "Le mot de passe ne peut pas contenir plus de 50 caractères !",
-		})
-		.refine((value) => /[A-Z]/.test(value), {
-			message: "Le mot de passe doit contenir au moins une majuscule",
-		})
-		.refine((value) => /[0-9]/.test(value), {
-			message: "Le mot de passe doit contenir au moins un chiffre",
-		})
-		.refine((value) => /[!@#$%^&*]/.test(value), {
-			message:
-				"Le mot de passe doit contenir au moins un caractère speciaux (!@#$%^&*)",
-		}),
 });
 
 export type User = z.infer<typeof userSchema>;
