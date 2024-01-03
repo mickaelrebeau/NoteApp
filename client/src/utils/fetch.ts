@@ -18,13 +18,16 @@ export interface UpdateUser {
 }
 
 export const signup = async (user: User) => {
-	const response = await fetch("http://localhost:3000/auth/signup", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(user),
-	});
+	const response = await fetch(
+		"noteapp-production-5d50.up.railway.app/auth/signup",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(user),
+		}
+	);
 
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,13 +38,16 @@ export const signup = async (user: User) => {
 }
 
 export const login = async (user: User) => {
-	const response = await fetch("http://localhost:3000/auth/signin", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(user),
-	});
+	const response = await fetch(
+		"noteapp-production-5d50.up.railway.app/auth/signin",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(user),
+		}
+	);
 
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,7 +59,9 @@ export const login = async (user: User) => {
 
 export const getUser = async (userId: string) => {
 	try {
-		const response = await fetch(`http://localhost:3000/user/${userId}`);
+		const response = await fetch(
+			`noteapp-production-5d50.up.railway.app/user/${userId}`
+		);
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
@@ -66,7 +74,9 @@ export const getUser = async (userId: string) => {
 
 export const getUsername = async (userId: string) => {
 	try {
-		const response = await fetch(`http://localhost:3000/user/${userId}`);
+		const response = await fetch(
+			`noteapp-production-5d50.up.railway.app/user/${userId}`
+		);
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
@@ -78,13 +88,16 @@ export const getUsername = async (userId: string) => {
 };
 
 export const updateUser = async (userId: string, user: UpdateUser) => {
-	const response = await fetch(`http://localhost:3000/user/${userId}`, {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(user),
-	});
+	const response = await fetch(
+		`noteapp-production-5d50.up.railway.app/user/${userId}`,
+		{
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(user),
+		}
+	);
 
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
@@ -105,7 +118,7 @@ export const postNote = async (note: Notes, files: File[]) => {
 		formData.append("files", file);
 	}
 
-	const response = await fetch("http://localhost:3000/note", {
+	const response = await fetch("noteapp-production-5d50.up.railway.app/note", {
 		method: "POST",
 		body: formData,
 	});
@@ -129,10 +142,13 @@ export const updateNote = async (id: string, note: Notes, files: File[]) => {
 		formData.append("files", file);
 	}
 
-	const response = await fetch(`http://localhost:3000/note/${id}`, {
-		method: "PUT",
-		body: formData,
-	});
+	const response = await fetch(
+		`noteapp-production-5d50.up.railway.app/note/${id}`,
+		{
+			method: "PUT",
+			body: formData,
+		}
+	);
 
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
@@ -143,7 +159,7 @@ export const updateNote = async (id: string, note: Notes, files: File[]) => {
 };
 
 export const getNotes = async () => {
-	const response = await fetch("http://localhost:3000/note");
+	const response = await fetch("noteapp-production-5d50.up.railway.app/note");
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
@@ -152,7 +168,7 @@ export const getNotes = async () => {
 };
 
 export const getNote = async (noteId: string) => {
-	const response = await fetch(`http://localhost:3000/note/${noteId}`);
+	const response = await fetch(`noteapp-production-5d50.up.railway.app/note/${noteId}`);
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
@@ -161,7 +177,7 @@ export const getNote = async (noteId: string) => {
 };
 
 export const deleteNote = async (noteId: string) => {
-	const response = await fetch(`http://localhost:3000/note/${noteId}`, {
+	const response = await fetch(`noteapp-production-5d50.up.railway.app/note/${noteId}`, {
 		method: "DELETE",
 	});
 
@@ -174,7 +190,7 @@ export const deleteNote = async (noteId: string) => {
 }
 
 export const deleteFile = async (fileId: string) => {
-	const response = await fetch(`http://localhost:3000/files/${fileId}`, {
+	const response = await fetch(`noteapp-production-5d50.up.railway.app/files/${fileId}`, {
 		method: "DELETE",
 	});
 
